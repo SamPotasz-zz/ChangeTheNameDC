@@ -82,8 +82,10 @@
 	function read_hogs_haven() 
 	{
 	  
-	
-		$.jGFeed("http://feeds.feedburner.com/sportsblogs/hogshaven", function(feeds) {
+		var url = "http://feeds.washingtonpost.com/rss/rss_football-insider";
+		url = "http://feeds.feedburner.com/sportsblogs/hogshaven";
+		$.jGFeed( url, function(feeds) 
+		{
 			// Check for errors
 			if(!feeds) {
 				// there was an error

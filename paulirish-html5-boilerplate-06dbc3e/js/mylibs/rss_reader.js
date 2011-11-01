@@ -6,6 +6,7 @@ function get_rss_feed() {
 	 * put the results in to an argument for parsing in the inline
 	 * function called when the feed retrieval is complete
 	 */
+	//http://feeds.washingtonpost.com/rss/rss_football-insider
 	$.get( "http://feeds.feedburner.com/sportsblogs/hogshaven.json", function(d) {
  
 		//find each 'item' in the file and parse it
