@@ -43,7 +43,9 @@
     </header>
     <div id="main" role="main">
 
-		<input type="button" value="Click Here" onClick="read_hogs_haven();">
+		<input type="button" value="Football Insider" onClick="read_hogs_haven( 0 );">
+		<input type="button" value="Hogs Haven" onClick="read_hogs_haven( 1 );">
+		<input type="button" value="DC Sports Bog" onClick="read_hogs_haven( 2 );">
 
 		<div id="feedContent">
 			&nbsp;
@@ -79,38 +81,7 @@
 
   <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
 	<script>
-	function read_hogs_haven() 
-	{
-	  
-		var url = "http://feeds.washingtonpost.com/rss/rss_football-insider";
-		url = "http://feeds.feedburner.com/sportsblogs/hogshaven";
-		$.jGFeed( url, function(feeds) 
-		{
-			// Check for errors
-			if(!feeds) {
-				// there was an error
-				return false;
-			}
-			// do whatever you want with feeds here
-			for(var i = 0; i < feeds.entries.length; i++) {
-				var entry = feeds.entries[i];
-				// Entry title
-				var title = entry.title;
-				var pubDate = entry.publishedDate;
-				var description = entry.description;
-				var link = entry.link;
-				
-				var html = "<div class=\"entry\"><h2 class=\"postTitle\">" + title + "<\/h2>";
-				html += "<em class=\"date\">" + pubDate + "</em>";
-				html += "<p class=\"description\">" + description + "</p>";
-				html += "<a href=\"" + link + "\" target=\"_blank\">Read More >><\/a><\/div>";
- 
-				//put that feed content on the screen!
-				$('#feedContent').append($(html));  
-			}
-		}, 10);
-	}
-
+	
 	</script>
   
   <script>
