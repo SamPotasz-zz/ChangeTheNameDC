@@ -1,4 +1,4 @@
-function read_hogs_haven( feedIndex ) 
+function readFeed( feedIndex ) 
 {
 	const FOOTBALL_INSIDER_URL = 'http://feeds.washingtonpost.com/rss/rss_football-insider';
 	const HOGS_HAVEN_URL = 'http://feeds.feedburner.com/sportsblogs/hogshaven';
@@ -8,73 +8,63 @@ function read_hogs_haven( feedIndex )
 	
 	var url = ALL_FEEDS[ feedIndex ];
 	
-	$.jGFeed( url, function(feeds) 
-	{
-		// Check for errors
-		if(!feeds) {
-			// there was an error
-			return false;
-		}
-		
-		//clear the content in the div for the next feed.
-		$("#feedContent").empty();
-		
-		// do whatever you want with feeds here
-		for(var i = 0; i < feeds.entries.length; i++) {
-			var entry = feeds.entries[i];
-			// Entry title
-			var title = entry.title;
-			var pubDate = entry.publishedDate;
-			var description = entry.description;
-			var link = entry.link;
-			
-			var html = "<div class=\"entry\"><h2 class=\"postTitle\">" + title + "<\/h2>";
-			html += "<em class=\"date\">" + pubDate + "</em>";
-			html += "<p class=\"description\">" + description + "</p>";
-			html += "<a href=\"" + link + "\" target=\"_blank\">Read More >><\/a><\/div>";
- 
-				//put that feed content on the screen!
-			$('#feedContent').append($(html));  
-		}
-	}, 10);
+	$.jGFeed( url, parseFeeds, 5 );
 };
 
-
-function get_rss_feed() {
+/**
+ * Takes in an array of feeds, which contain arrays of google feed API entries,
+ * and adds their data to the screen
+ */
+function parseFeeds( feeds )
+{
+	// Check for errors
+	if(!feeds) {
+		// there was an error
+		return false;
+	}
+	
 	//clear the content in the div for the next feed.
 	$("#feedContent").empty();
+	
+	// do whatever you want with feeds here
+	for( var i = 0; i < feeds.entries.length; i++ ) 
+	{
+		var entry = feeds.entries[i];
+		// Entry title
+		var title = scrub( entry.title );
+		var pubDate = entry.publishedDate;
+		var snippet = scrub( entry.contentSnippet );
+		var link = entry.link;
+		
+		var catArray = entry.categories;
+		var catHTML = '<ul>';
+		for( var cat = 0; cat < catArray.length; cat++ )
+		{
+			catHTML += '<li>' + catArray[ cat ] + '</li>'
+		}
+		catHTML += '</ul>'
+		
+		var html = "<div class=\"entry\"><h2 class=\"postTitle\">" + title + "<\/h2>";
+		html += "<em class=\"date\">" + pubDate + "</em>";
+		html += "<p class=\"description\">" + snippet + "</p>";
+		html += catHTML;
+		html += "<div class=\"expandable\">" + scrub( entry.content ) + "</div>";
+		html += "<a href=\"" + link + "\" target=\"_blank\">Read More >><\/a><\/div>";
  
-	/* use the JQuery get to grab the URL from the selected item,
-	 * put the results in to an argument for parsing in the inline
-	 * function called when the feed retrieval is complete
-	 */
-	//http://feeds.washingtonpost.com/rss/rss_football-insider
-	$.get( "http://feeds.feedburner.com/sportsblogs/hogshaven.json", function(d) {
- 
-		//find each 'item' in the file and parse it
-		$(d).find('item').each(function() {
- 
-			//name the current found item this for this particular loop run
-			var $item = $(this);
-			// grab the post title
-			var title = $item.find('title').text();
-			// grab the post's URL
-			var link = $item.find('link').text();
-			// next, the description
-			var description = $item.find('description').text();
-			//don't forget the pubdate
-			var pubDate = $item.find('pubDate').text();
- 
-			// now create a var 'html' to store the markup we're using to output the feed to the browser window
-			var html = "<div class=\"entry\"><h2 class=\"postTitle\">" + title + "<\/h2>";
-			html += "<em class=\"date\">" + pubDate + "</em>";
-			html += "<p class=\"description\">" + description + "</p>";
-			html += "<a href=\"" + link + "\" target=\"_blank\">Read More >><\/a><\/div>";
- 
-			//put that feed content on the screen!
-			$('#feedContent').append($(html));  
-		});
-	});
- 
-};
+		//put that feed content on the screen!
+		$('#feedContent').append($(html));
+	}
+  	
+  	// simple example, using all default options unless overridden globally
+	$('div.expandable p').expander();
+}
 
+/**
+ * String -> String
+ * Takes in a string and returns a copy of it where all instances
+ * of "Redskins" have been replaced with "********"
+ */
+function scrub( toScrub )
+{
+	return toScrub.replace( "Redskins", "*******" )
+}
