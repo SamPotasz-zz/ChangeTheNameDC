@@ -1,10 +1,11 @@
 function readFeed( feedIndex ) 
 {
-	const FOOTBALL_INSIDER_URL = 'http://feeds.washingtonpost.com/rss/rss_football-insider';
-	const HOGS_HAVEN_URL = 'http://feeds.feedburner.com/sportsblogs/hogshaven';
-	const BOG_URL = 'http://feeds.washingtonpost.com/rss/rss_dc-sports-bog';
+	const FOOTBALL_INSIDER = 'http://feeds.washingtonpost.com/rss/rss_football-insider';
+	const HOGS_HAVEN = 'http://feeds.feedburner.com/sportsblogs/hogshaven';
+	const SPORTS_BOG = 'http://feeds.washingtonpost.com/rss/rss_dc-sports-bog';
+	const HARD_HITS = 'http://feeds.washingtonpost.com/rss/rss_hard-hits';
 	
-	const ALL_FEEDS = [ FOOTBALL_INSIDER_URL, HOGS_HAVEN_URL, BOG_URL ];
+	const ALL_FEEDS = [ FOOTBALL_INSIDER, HOGS_HAVEN, SPORTS_BOG, HARD_HITS ];
 	
 	var url = ALL_FEEDS[ feedIndex ];
 	
@@ -63,6 +64,9 @@ function parseFeeds( feeds )
 	    //expandText:       '[...]', // default is 'read more'
 	    //collapseTimer:    5000, // re-collapses after 5 seconds; default is 0, so no re-collapsing
 	    //userCollapseText: '[^]'  // default is 'read less'
+	    // beforeExpand: function() {
+      		// $('div.expandable').replace("Redskins", "*******")
+    },
   	});
 }
 
