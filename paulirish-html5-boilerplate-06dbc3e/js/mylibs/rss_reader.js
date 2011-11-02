@@ -33,6 +33,7 @@ function parseFeeds( feeds )
 		// Entry title
 		var title = scrub( entry.title );
 		var pubDate = entry.publishedDate;
+		//use the snippet length to determine where to place the expander link
 		var snippet = scrub( entry.contentSnippet );
 		var link = entry.link;
 		
@@ -46,17 +47,23 @@ function parseFeeds( feeds )
 		
 		var html = "<div class=\"entry\"><h2 class=\"postTitle\">" + title + "<\/h2>";
 		html += "<em class=\"date\">" + pubDate + "</em>";
-		html += "<p class=\"description\">" + snippet + "</p>";
+		//html += "<p class=\"description\">" + snippet + "</p>";
 		html += catHTML;
-		html += "<div class=\"expandable\">" + scrub( entry.content ) + "</div>";
-		html += "<a href=\"" + link + "\" target=\"_blank\">Read More >><\/a><\/div>";
+		html += "<div class=\"expandable\" id=\"content\">" + scrub( entry.content ) + "</div>";
+		html += "<a href=\"" + link + "\" target=\"_blank\">Go to site >><\/a><\/div>";
  
 		//put that feed content on the screen!
 		$('#feedContent').append($(html));
 	}
   	
   	// simple example, using all default options unless overridden globally
-	$('div.expandable p').expander();
+	$('div.expandable').expander({
+	    slicePoint:       snippet.length,  // default is 100
+	    //expandPrefix:     ' ', // default is '... '
+	    //expandText:       '[...]', // default is 'read more'
+	    //collapseTimer:    5000, // re-collapses after 5 seconds; default is 0, so no re-collapsing
+	    //userCollapseText: '[^]'  // default is 'read less'
+  	});
 }
 
 /**
