@@ -1,3 +1,5 @@
+const REPLACING_WITH = "*******";
+
 function readFeed( feedIndex ) 
 {
 	const FOOTBALL_INSIDER = 'http://feeds.washingtonpost.com/rss/rss_football-insider';
@@ -32,7 +34,7 @@ function parseFeeds( feeds )
 	{
 		var entry = feeds.entries[i];
 		// Entry title
-		var title = scrub( entry.title );
+		var title = entry.title.replace( "Redskins", REPLACING_WITH )  //scrub( entry.title );
 		var pubDate = entry.publishedDate;
 		//use the snippet length to determine where to place the expander link
 		var snippet = scrub( entry.contentSnippet );
@@ -59,7 +61,7 @@ function parseFeeds( feeds )
 	}
   	
   	// simple example, using all default options unless overridden globally
-	$('div.expandable').expander({
+/*	$('div.expandable').expander({
 	    slicePoint:       snippet.length,  // default is 100
 	    //expandPrefix:     ' ', // default is '... '
 	    //expandText:       '[...]', // default is 'read more'
@@ -68,7 +70,7 @@ function parseFeeds( feeds )
 	    // beforeExpand: function() {
       		// $('div.expandable').replace("Redskins", "*******")
     },
-  	});
+  	});*/
 }
 
 /**
@@ -78,5 +80,17 @@ function parseFeeds( feeds )
  */
 function scrub( toScrub )
 {
-	return toScrub.replace( "Redskins", "*******" )
+	var clean = toScrub.replace( "Redskins", REPLACING_WITH );
+	
+	if( toScrub.childNodes )
+	{
+		clean.childNodes = new Array();
+		for( var i = 0; i < toScrub.childNodes.length; i++ )
+		{
+			alert( "Scrubbing a child " + toScrub.childNodes[ i ] )
+			clean.childNodes[ i ] = scrub( toScrub.childNodes[ i ])
+		}
+		
+	}
+	return clean;
 }
