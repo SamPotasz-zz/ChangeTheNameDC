@@ -169,8 +169,22 @@ a:hover { color: #036; }
  * Author: Sam Potasznik, @SamPotasz
  */
 
+/* GOLD: #ffc51b */
+/* BURG: #7c0808 */
+
+#main{
+	width: 100%;
+}
+
+div.mainContent{
+	font-size: 16px;
+	width: 550px;
+	margin: auto;
+}
+
+
 div.topBanner{ 
-	background-color:#000000; /*#7c0808;*/ 
+	background-color:#000000; 
 	width:100%;
 	overflow:auto; 
 }
@@ -185,6 +199,14 @@ div #bannerTabs{
 	font-size: 20px;
 	margin-top: 50px;
 	margin-right: 100px;
+}
+
+#bannerTabs a.currPage{
+	font-weight: bold;
+	color: #ffc51b;
+}
+#bannerTabs a{
+	color: #7c0808;
 }
 
 
