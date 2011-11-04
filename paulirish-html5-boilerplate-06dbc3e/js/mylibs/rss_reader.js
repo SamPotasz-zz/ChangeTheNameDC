@@ -36,6 +36,7 @@ function parseFeeds( feeds )
 		var pubDate = entry.publishedDate;
 		//use the snippet length to determine where to place the expander link
 		var snippet = scrub( entry.contentSnippet );
+		var content = scrub( entry.content )
 		var link = entry.link;
 		
 		var catArray = entry.categories;
@@ -50,7 +51,7 @@ function parseFeeds( feeds )
 		html += "<em class=\"date\">" + pubDate + "</em>";
 		//html += "<p class=\"description\">" + snippet + "</p>";
 		html += catHTML;
-		html += "<div class=\"expandable\" id=\"content\">" + scrub( entry.content ) + "</div>";
+		html += "<div id=\"content\">" + content + "</div>";
 		html += "<a href=\"" + link + "\" target=\"_blank\">Go to site >><\/a><\/div>";
  
 		//put that feed content on the screen!
@@ -58,6 +59,7 @@ function parseFeeds( feeds )
 	}
   	
   	// simple example, using all default options unless overridden globally
+	/*
 	$('div.expandable').expander({
 	    slicePoint:       snippet.length,  // default is 100
 	    //expandPrefix:     ' ', // default is '... '
@@ -68,6 +70,7 @@ function parseFeeds( feeds )
       		// $('div.expandable').replace("Redskins", "*******")
     },
   	});
+  	*/
 }
 
 /**

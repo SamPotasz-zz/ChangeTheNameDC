@@ -151,6 +151,7 @@ button {  width: auto; overflow: visible; }
 body, select, input, textarea {
   /* #444 looks better than black: twitter.com/H_FJ/statuses/11800719859 */
   color: #444;
+  
   /* Set your base font here, to apply evenly */
   /* font-family: Georgia, serif;  */
 }
@@ -165,10 +166,26 @@ a:hover { color: #036; }
 /**
  * Primary styles
  *
- * Author: 
+ * Author: Sam Potasznik, @SamPotasz
  */
 
+div.topBanner{ 
+	background-color:#000000; /*#7c0808;*/ 
+	width:100%;
+	overflow:auto; 
+}
 
+div #bannerLogo{
+	float: left;
+	margin-left: 100px;
+}
+
+div #bannerTabs{
+	float: right;
+	font-size: 20px;
+	margin-top: 50px;
+	margin-right: 100px;
+}
 
 
 
